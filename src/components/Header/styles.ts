@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import {darken} from "polished";
 
 export const Container = styled.header`
   background: var(--menus);
@@ -15,8 +16,28 @@ export const Container = styled.header`
     color: var(--title);
   }
 
-  span {
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--title);
     margin-left: auto;
     text-transform: capitalize;
+    background-color: var(--selected);
+    color: var(--title);
+    padding: 0.5rem 1rem;
+    flex-direction:row;
+    cursor: pointer;
+    border-radius: 0.5rem;
+
+    transition: background-color 0.2s;
+
+    span {
+      margin: 0 1rem;
+    }
+
+    &:hover {
+      background-color: ${darken(0.55, "#CCC")}
+    }
   }
 `

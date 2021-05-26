@@ -17,6 +17,7 @@ export const Container = styled.nav`
     margin-top: 0.5rem;
     border-radius: 0 1rem 1rem 0;
     transition: background-color 0.2s;
+    cursor: pointer;
 
 
     &.isActive {

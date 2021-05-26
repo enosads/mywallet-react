@@ -1,16 +1,35 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {GlobalStyle} from './styles/global'
 
 import {Header} from "./components/Header";
 import {Sidebar} from "./components/Sidebar";
+import {AccountProvider} from "./hooks/useAccounts";
+import {SelectAccountModal} from "./components/SelectAccountModal";
+import Modal from "react-modal";
+
+Modal.setAppElement("#root");
 
 function App() {
+    const [isSelectAccountModalOpen, setIsSelectAccountModalOpen] = useState(false)
+
+    function handleOpenSelectAccountModal() {
+        setIsSelectAccountModalOpen(true);
+    }
+
+    function handleCloseSelectAccountModal() {
+        setIsSelectAccountModalOpen(false);
+    }
+
     return (
-        <>
-            <Header/>
+        <AccountProvider>
+            <Header onOpenSelectAccountModal={handleOpenSelectAccountModal}/>
             <Sidebar/>
+            <SelectAccountModal
+                onRequestClose={handleCloseSelectAccountModal}
+                isOpen={isSelectAccountModalOpen}
+            />
             <GlobalStyle/>
-        </>
+        </AccountProvider>
     );
 }
 
