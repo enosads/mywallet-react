@@ -2,6 +2,7 @@ import Modal from "react-modal";
 import {Container, RadioBox} from "./styles";
 import closeImg from "../../assets/close.svg"
 import {useAccounts} from "../../hooks/useAccounts";
+import {useState} from "react";
 
 
 interface SelectAccountModalProps {
@@ -11,6 +12,7 @@ interface SelectAccountModalProps {
 
 export function SelectAccountModal(props: SelectAccountModalProps) {
     const {accounts, selectedAccountId, selectAccount} = useAccounts();
+    const [id, setId] = useState(selectedAccountId);
     return (
         <Modal
             isOpen={props.isOpen}
@@ -34,8 +36,8 @@ export function SelectAccountModal(props: SelectAccountModalProps) {
                 <RadioBox
                     key="0"
                     type="button"
-                    isActive={selectedAccountId === 0}
-                    onClick={()=>selectAccount(0)}
+                    isActive={id === 0}
+                    onClick={() => setId(0)}
                 >
                     <span>Todas</span>
                 </RadioBox>
@@ -44,13 +46,26 @@ export function SelectAccountModal(props: SelectAccountModalProps) {
                         <RadioBox
                             key={account.id}
                             type="button"
-                            isActive={selectedAccountId === account.id}
-                            onClick={()=>selectAccount(account.id)}
+                            isActive={id === account.id}
+                            onClick={() => setId(account.id)}
                         >
                             <span>{account.name}</span>
                         </RadioBox>
                     )
                 )}
+                <button
+                    className='btnSave'
+                    type="button"
+                    onClick={
+                        () => {
+                            selectAccount(id);
+                            props.onRequestClose();
+                        }
+                    }
+                >
+                    <span>Salvar</span>
+                </button>
+
             </Container>
         </Modal>
     );

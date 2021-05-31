@@ -10,6 +10,9 @@ export const Container = styled.nav`
   justify-content: space-between;
 
   li {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     height: 4rem;
     color: var(--title);
     list-style-type: none;

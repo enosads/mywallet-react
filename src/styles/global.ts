@@ -6,6 +6,8 @@ export const GlobalStyle = createGlobalStyle`
     --title: #CCCCCC;
     --background: #2F2F2F;
     --selected: #707070;
+    --red: #E52E4D;
+    --green: #1B9E77;
   }
 
   * {
@@ -15,7 +17,7 @@ export const GlobalStyle = createGlobalStyle`
 
   }
 
-  body {
+  body {  
     background-color: var(--background);
     -webkit-font-smoothing: antialiased;
   }
@@ -82,6 +84,9 @@ export const GlobalStyle = createGlobalStyle`
     &:hover {
       filter: brightness(0.8);
     }
+  }
+  .content{
+    display:flex;
   }
 
 `

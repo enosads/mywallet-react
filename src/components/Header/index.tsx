@@ -1,6 +1,6 @@
 import logoImg from '../../assets/logo.svg';
 import {Container} from "./styles";
-import {FaChevronDown, FaWallet} from 'react-icons/fa';
+import {FaChevronDown, FaWallet, } from 'react-icons/fa';
 import {useAccounts} from "../../hooks/useAccounts";
 
 interface HeaderProps {

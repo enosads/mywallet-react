@@ -6,6 +6,7 @@ import {Sidebar} from "./components/Sidebar";
 import {AccountProvider} from "./hooks/useAccounts";
 import {SelectAccountModal} from "./components/SelectAccountModal";
 import Modal from "react-modal";
+import {Dashboard} from "./pages/Dashboard";
 
 Modal.setAppElement("#root");
 
@@ -23,7 +24,10 @@ function App() {
     return (
         <AccountProvider>
             <Header onOpenSelectAccountModal={handleOpenSelectAccountModal}/>
-            <Sidebar/>
+            <div className='content'>
+                <Sidebar/>
+                <Dashboard/>
+            </div>
             <SelectAccountModal
                 onRequestClose={handleCloseSelectAccountModal}
                 isOpen={isSelectAccountModalOpen}

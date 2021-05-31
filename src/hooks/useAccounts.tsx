@@ -28,15 +28,37 @@ const AccountsContext = createContext<AccountsContextData>(
 export function AccountProvider(props: AccountProviderProps) {
     const [accounts, setAccounts] = useState<Account[]>([]);
     const [selectedAccountId, setSelectedAccountId] = useState<number>(0);
-    const [selectedAccount, setSelectedAccount] = useState<Account>({name: 'Todas'} as Account);
-
+    const [selectedAccount, setSelectedAccount] = useState<Account>({
+        name: 'Todas',
+        outcome: 0,
+        income: 0,
+        total: 0,
+        id: 0
+    });
     useEffect(() => {
         api.get('accounts/', {
             headers: {
-                Authorization: 'Token 27e890caed6156c2f01d9a119fa19d4e082cd3dd',
+                Authorization: 'Token d5e9506c0c976de391d01e50ae979dea114f0894',
             }
         })
-            .then(response => setAccounts(response.data))
+            .then(response => {
+                const accounts: Account[] = response.data;
+                setAccounts(accounts);
+                setSelectedAccount(
+                    accounts.reduce((acc, account) => {
+                        acc.total += account.total
+                        acc.income += account.income
+                        acc.outcome += account.outcome;
+                        return acc;
+                    }, {
+                        name: 'Todas',
+                        outcome: 0,
+                        income: 0,
+                        total: 0,
+                        id: 0
+                    }))
+            });
+
 
     }, [])
 
@@ -44,7 +66,18 @@ export function AccountProvider(props: AccountProviderProps) {
         setSelectedAccountId(id);
         let account;
         if (id === 0) {
-            account = {name: 'Todas'};
+            account = accounts.reduce((acc, account) => {
+                acc.total += account.total;
+                acc.income += account.income
+                acc.outcome += account.outcome;
+                return acc;
+            }, {
+                name: 'Todas',
+                outcome: 0,
+                income: 0,
+                total: 0,
+                id: 0
+            })
         } else {
             account = accounts.find(account => account.id === id);
         }
